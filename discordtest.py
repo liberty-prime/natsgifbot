@@ -304,13 +304,13 @@ def convert_number_to_emoji(num):
 async def link(ctx,*args):
     objname = 'links'
     with open(miscfile,'r') as f:
-        s = json.loads(f.read())
+        s = json.loads(f.read().lower())
     if objname not in s:
         s[objname] = {}
     links = s[objname]
     if len(args) == 3 and args[0] == 'add':
         if str(ctx.message.author) in auth_users:
-            if args[1] in links:
+            if args[1].lower() in links:
                 await bot.say('link name already in use')
             else:
                 if args[2].startswith('http'):
@@ -328,7 +328,7 @@ async def link(ctx,*args):
             for l in links:
                 output = output + l + ", "
             await bot.say(output[:-2])
-        elif args[0] in links:
+        elif args[0].lower() in links:
             await bot.say(links[args[0]])
         else:
             await bot.say("could not find a link named %s" % args[0])
@@ -482,7 +482,7 @@ async def slap(ctx, *text:str):
     
 @bot.command()
 async def clap(*text:str):
-    await bot.say('👏'.join(text).upper() + '👏')
+    await bot.say('ðŸ‘'.join(text).upper() + 'ðŸ‘')
 
 @bot.command()
 async def big(text:str):
